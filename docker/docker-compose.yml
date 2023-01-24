@@ -1,0 +1,36 @@
+version: '3'
+services:
+  
+  # Klasicka MySQL databaze 
+  databaze:
+    image: mariadb:10.9
+    container_name: ip3_prohlizec_db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: kaktusdelta
+      MYSQL_USER: delta
+      MYSQL_PASSWORD: kaktusdelta
+      MYSQL_DATABASE: delta
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+  
+  # Pro snazsi spravu databaze
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ip3_prohlizec_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 7080:80
+    environment:
+      - PMA_HOST=databaze
+  
+  # Jednotlive Apache servery s nejcasteji pouzivanymi verzemi PHP a Xdebugu
+  webserver-php8.1:
+    build: ./8.1
+    container_name: delta_webserver_php8.1-v2
+    restart: unless-stopped
+    volumes:
+      - ./../:/var/www/html
+    ports:
+      - 9081:80

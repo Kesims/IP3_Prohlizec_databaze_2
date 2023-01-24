@@ -1,0 +1,12 @@
+<table class="table table-striped">
+    <th>Název</th>
+    <th>Telefon</th>
+    <th>Číslo</th>
+    {{#rooms}}
+        <tr>
+            <td><a href="/www/room.php?room_id={{room_id}}">{{name}}</a></td>
+            <td>{{no}}</td>
+            <td>{{phone}}</td>
+        </tr>
+    {{/rooms}}
+</table>
