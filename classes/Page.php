@@ -4,6 +4,11 @@ abstract class Page
 {
     public string $title;
 
+    protected function prepareData(): void
+    {
+
+    }
+
     protected function HTTPHeaders(): void
     {
 
@@ -24,18 +29,34 @@ abstract class Page
 
     public function render(): void
     {
-        // Posle HTTP hlavicky
-        $this->HTTPHeaders();
+        try {
+            $this->prepareData();
 
-        $pageData = [];
+            // Posle HTTP hlavicky
+            $this->HTTPHeaders();
 
-        // Ziska hlavicky
-        $pageData["htmlHead"] = $this->HTMLHead();
-        // Ziska zahlavi
-        $pageData["pageHeader"] = $this->HTMLPageHeader();
-        // Ziska telo
-        $pageData["pageBody"] = $this->HTMLPageBody();
-        // Preda sablone stranky data pro vykresleni
-        echo MustacheProvider::get()->render("page", $pageData);
+            $pageData = [];
+
+            // Ziska hlavicky
+            $pageData["htmlHead"] = $this->HTMLHead();
+            // Ziska zahlavi
+            $pageData["pageHeader"] = $this->HTMLPageHeader();
+            // Ziska telo
+            $pageData["pageBody"] = $this->HTMLPageBody();
+            // Preda sablone stranky data pro vykresleni
+            echo MustacheProvider::get()->render("page", $pageData);
+        } catch (BaseException $exception) {
+            $exceptionPage = new ExceptionPage($exception);
+            $exceptionPage->render();
+            exit;
+        } catch (Exception $exception) {
+            if(AppConfig::get("debug")) throw $exception;
+
+            $exception = new BaseException();
+            $exceptionPage = new ExceptionPage($exception);
+            $exceptionPage->render();
+            exit;
+        }
+
     }
 }

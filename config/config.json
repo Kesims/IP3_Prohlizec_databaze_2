@@ -3,5 +3,6 @@
     "host": "ip3_prohlizec_db",
     "name": "ip3",
     "charset": "utf8mb4"
-  }
+  },
+  "debug": false
 }

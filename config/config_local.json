@@ -2,5 +2,6 @@
   "database": {
     "user": "ip3",
     "password": "kaktusdelta"
-  }
+  },
+  "debug": true
 }

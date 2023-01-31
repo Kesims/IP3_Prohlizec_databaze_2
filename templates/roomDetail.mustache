@@ -1,0 +1,20 @@
+<h1>Detail místnosti {{room.no}}</h1>
+<dl>
+    <dt>Název</dt>
+    <dd>{{room.name}}</dd>
+
+    <dt>Číslo</dt>
+    <dd>{{room.no}}</dd>
+
+
+    <dt>Telefon</dt>
+    <dd>{{#room.phone}}{{room.phone}}{{/room.phone}}{{^room.phone}}---{{/room.phone}}</dd>
+
+    <dt>Lidé</dt>
+    {{#employees}}
+        <dd><a href="employee.php?employee_id={{employee_id}}">{{surname}} {{name}}</a></dd>
+    {{/employees}}
+    {{^employees}}
+        ---
+    {{/employees}}
+</dl>
