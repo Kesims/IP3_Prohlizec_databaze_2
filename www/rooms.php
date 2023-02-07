@@ -10,8 +10,7 @@ class RoomListPage extends Page
     protected function HTMLPageBody(): string
     {
         // ziskam data o mistnostech
-        $query = "select * from room;";
-        $rooms = PdoProvider::get()->query($query)->fetchAll(PDO::FETCH_OBJ);
+        $rooms = RoomModel::all();
 
         return MustacheProvider::get()->render("roomList", ["rooms" => $rooms]);
 

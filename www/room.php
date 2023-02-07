@@ -20,13 +20,13 @@ class RoomDetailPage extends Page
         }
 
         //vytáhnu místnost
-        $query = ('SELECT room_id, name, no, phone FROM room WHERE room_id = :roomId');
-        $stmt = PdoProvider::get()->prepare($query);
-        $stmt->execute(['roomId' => $room_id]);
-        if($stmt->rowCount() < 1) {
+        $this->room = RoomModel::findById($room_id);
+
+        if($this->room)
+        {
             throw new NotFoundException();
         }
-        $this->room = $stmt->fetch();
+
         $this->title = htmlspecialchars("Mistnost {$this->room->no} ({$this->room->name})");
 
         //získám lidi

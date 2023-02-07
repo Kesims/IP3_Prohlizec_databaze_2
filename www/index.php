@@ -9,8 +9,11 @@ class IndexPage extends Page {
 
     protected function HTMLPageBody(): string
     {
-//        return "<p>Hlavni strana</p> ";
-//        return PdoProvider::get();
+        $room = RoomModel::all();
+        dump($room);
+
+
+        return "<p>Hlavni strana</p> ";
     }
 }
 

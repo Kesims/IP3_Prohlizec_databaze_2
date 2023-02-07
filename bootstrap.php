@@ -8,6 +8,12 @@ spl_autoload_register(
     }
 );
 
+spl_autoload_register(
+    function ($class_name) {
+        include __DIR__ . "/models/{$class_name}.php";
+    }
+);
+
 
 use Tracy\Debugger;
 Debugger::enable(Debugger::DEVELOPMENT);
