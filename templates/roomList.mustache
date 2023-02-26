@@ -1,12 +1,28 @@
-<table class="table table-striped">
+<div>
+    <a class="btn btn-primary" href="insert.php">Nová místnost</a>
+</div>
+<table class="table table-striped mt-3">
     <th>Název</th>
     <th>Telefon</th>
     <th>Číslo</th>
+    <th colspan="2">Akce</th>
     {{#rooms}}
         <tr>
             <td><a href="/www/room/detail.php?room_id={{room_id}}">{{name}}</a></td>
             <td>{{no}}</td>
             <td>{{phone}}</td>
+            <td>
+                <form method="post" action="delete.php">
+                    <input type="hidden" name="room_id" value="{{room_id}}">
+                    <input type="submit" class="btn btn-danger" value="Odstranit" onclick="return confirm('Opravdu chcete smazat místnost?')">
+                </form>
+            </td>
+            <td>
+                <form method="post" action="update.php">
+                    <input type="hidden" name="room_id" value="{{room_id}}">
+                    <input type="submit" class="btn btn-info" value="Upravit">
+                </form>
+            </td>
         </tr>
     {{/rooms}}
 </table>

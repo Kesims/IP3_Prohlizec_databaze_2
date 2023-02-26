@@ -108,14 +108,38 @@ class RoomModel
     public function insert() : bool {
         $query = "insert into `" . self::$table . "` (`name`, `no`, `phone`) values (:name, :no, :phone);";
         $pdo = PdoProvider::get();
+
         $stmt = $pdo->prepare($query);
         return $stmt->execute([
             "name" => $this->name,
             "no" => $this->no,
             "phone" => $this->phone
         ]);
+    }
 
+    public function update() : bool {
+        $query = "update `" . self::$table . "` SET (`name` = :name, `no` = :no, `phone` = :phone) where `room_id` =:room_id;";
+        $pdo = PdoProvider::get();
+        $stmt = $pdo->prepare($query);
+        return $stmt->execute([
+            "name" => $this->name,
+            "no" => $this->no,
+            "phone" => $this->phone,
+            "room_id" => $this->room_id,
+        ]);
+    }
 
+    public static function deleteById($room_id) : bool {
+        $query = "delete from " . self::$table . "where room_id = :room_id";
+        $pdo = PdoProvider::get();
+        $stmt = $pdo->prepare($query);
+        return $stmt->execute([
+            "room_id" => $room_id,
+        ]);
+    }
+
+    public function delete() {
+        return static::deleteById($this->room_id);
     }
 
 

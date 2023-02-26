@@ -2,7 +2,7 @@
 
 include "../../bootstrap.php";
 
-class RoomInsertPage extends CRUDPage
+class RoomUpdatePage extends CRUDPage
 {
 
 
@@ -20,7 +20,13 @@ class RoomInsertPage extends CRUDPage
         switch ($this->state) {
             case self::STATE_FORM_REQUEST:
             {
-                $this->room = new RoomModel();
+                $room_id = filter_input(INPUT_POST, "room_id", FILTER_VALIDATE_INT);
+                if(!$room_id) throw new BadRequestException();
+
+                $this->room = RoomModel::findById($room_id);
+
+                if(!$this->room) throw new NotFoundException();
+
                 $this->errors = [];
                 break;
             }
@@ -33,9 +39,9 @@ class RoomInsertPage extends CRUDPage
                 $this->errors = [];
                 if ($this->room->validate($this->errors)) {
                     //zpracovat
-                    $result = $this->room->insert();
+                    $result = $this->room->update();
                     //přesměrovat
-                    $this->redirect(self::ACTION_INSERT, $result);
+                    $this->redirect(self::ACTION_UPDATE, $result);
                 } else {
                     //na formular
                     $this->state = self::STATE_FORM_REQUEST;
@@ -72,5 +78,5 @@ class RoomInsertPage extends CRUDPage
 
 }
 
-$page = new RoomInsertPage();
+$page = new RoomUpdatePage();
 $page->render();
