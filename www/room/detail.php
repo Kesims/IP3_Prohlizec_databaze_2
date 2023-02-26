@@ -22,7 +22,7 @@ class RoomDetailPage extends Page
         //vytáhnu místnost
         $this->room = RoomModel::findById($room_id);
 
-        if($this->room)
+        if(!$this->room)
         {
             throw new NotFoundException();
         }

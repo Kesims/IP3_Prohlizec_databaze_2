@@ -10,7 +10,7 @@ class RoomUpdatePage extends CRUDPage
     private RoomModel $room;
     private array $errors;
 
-    public string $title = "Přidat místnost";
+    public string $title = "Upravit místnost";
 
     protected function prepareData(): void
     {
@@ -20,7 +20,7 @@ class RoomUpdatePage extends CRUDPage
         switch ($this->state) {
             case self::STATE_FORM_REQUEST:
             {
-                $room_id = filter_input(INPUT_POST, "room_id", FILTER_VALIDATE_INT);
+                $room_id = filter_input(INPUT_GET, "room_id", FILTER_VALIDATE_INT);
                 if(!$room_id) throw new BadRequestException();
 
                 $this->room = RoomModel::findById($room_id);

@@ -29,25 +29,34 @@ class RoomListPage extends CRUDPage
         switch($action) {
             case self::ACTION_INSERT:
                 if($success === 1) {
-                    $data["message"] = "Mistnost byla zalozena";
+                    $data["message"] = "Místnost byla založena.";
                     $data["alertType"] = "success";
                 }
                 else {
-                    $data["message"] = "Chyba pri vytvareni mistnosti.";
+                    $data["message"] = "Chyba při vytváření místnosti.";
                     $data["alertType"] = "danger";
                 }
                 break;
             case self::ACTION_DELETE:
                 if($success === 1) {
-                    $data["message"] = "Mistnost byla smazana";
+                    $data["message"] = "Místnost byla smazána.";
                     $data["alertType"] = "success";
                 }
                 else {
-                    $data["message"] = "Chyba pri mazani mistnosti.";
+                    $data["message"] = "Chyba při mazání místnosti.";
                     $data["alertType"] = "danger";
                 }
                 break;
-
+            case self::ACTION_UPDATE:
+                if($success === 1) {
+                    $data["message"] = "Místnost byla upravena.";
+                    $data["alertType"] = "success";
+                }
+                else {
+                    $data["message"] = "Chyba při úpravě místnosti.";
+                    $data["alertType"] = "danger";
+                }
+                break;
         }
 
         return MustacheProvider::get()->render("alert", $data);

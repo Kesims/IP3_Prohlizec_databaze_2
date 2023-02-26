@@ -40,7 +40,7 @@ class RoomModel
     public static function findById(int $id): ?RoomModel
     {
         $pdo = PdoProvider::get();
-        $query = "select * from `" . self::$table . "` where `room_id` = {$id}";
+        $query = "select * from `" . self::$table . "` where `room_id` = $id";
         $stmt = $pdo->query($query);
 
         if ($stmt->rowCount() < 1)
@@ -118,7 +118,7 @@ class RoomModel
     }
 
     public function update() : bool {
-        $query = "update `" . self::$table . "` SET (`name` = :name, `no` = :no, `phone` = :phone) where `room_id` =:room_id;";
+        $query = "update `" . self::$table . "` SET `name` = :name, `no` = :no, `phone` = :phone where `room_id` =:room_id;";
         $pdo = PdoProvider::get();
         $stmt = $pdo->prepare($query);
         return $stmt->execute([
@@ -130,7 +130,7 @@ class RoomModel
     }
 
     public static function deleteById($room_id) : bool {
-        $query = "delete from " . self::$table . "where room_id = :room_id";
+        $query = "delete from `" . self::$table . "` where room_id = :room_id";
         $pdo = PdoProvider::get();
         $stmt = $pdo->prepare($query);
         return $stmt->execute([
